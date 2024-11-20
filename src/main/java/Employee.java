@@ -7,6 +7,11 @@ public class Employee {
 
     private static int nextEmployeeId = 1;
 
+    public Employee() {
+        // Default constructor needed for Jackson
+        this.employeeId = nextEmployeeId++;
+    }
+
     public Employee(String firstName, String lastName, Integer age, String email, String position) {
         this.name = firstName + " " + lastName;
         this.age = age;
