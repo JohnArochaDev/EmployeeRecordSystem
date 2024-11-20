@@ -9,44 +9,38 @@ public class Employee {
     private Integer age; // Integer type for age, as in the constructor
     private final int employeeId;
 
-    // Static variable to track the next employee ID
     private static int nextEmployeeId = 1;
 
-    // File that stores the next employee ID (in case we need to persist it)
     private static final File nextEmployeeIdFile = new File("src/main/db/nextEmployeeId.json");
 
-    // Default constructor for Jackson
     public Employee() {
         this.employeeId = nextEmployeeId++;
-        saveNextEmployeeId(); // Save the updated nextEmployeeId after creating an employee
+        saveNextEmployeeId();
     }
 
-    // Constructor with fields
     public Employee(String firstName, String lastName, Integer age, String email, String position) {
         this.name = firstName + " " + lastName;
         this.age = age;
         this.email = email;
         this.position = position;
         this.employeeId = nextEmployeeId++;
-        saveNextEmployeeId(); // Save the updated nextEmployeeId after creating an employee
+        saveNextEmployeeId();
     }
 
-    // Static method to save the next employee ID to a file
     private static void saveNextEmployeeId() {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.writeValue(nextEmployeeIdFile, nextEmployeeId); // Write the nextEmployeeId value to the file
+            objectMapper.writeValue(nextEmployeeIdFile, nextEmployeeId);
         } catch (IOException e) {
             System.out.println("Error saving next employee ID: " + e.getMessage());
         }
     }
 
-    // Static method to load the next employee ID from the file
     private static void loadNextEmployeeId() {
         if (nextEmployeeIdFile.exists() && nextEmployeeIdFile.length() > 0) {
             try {
                 ObjectMapper objectMapper = new ObjectMapper();
-                nextEmployeeId = objectMapper.readValue(nextEmployeeIdFile, Integer.class); // Read nextEmployeeId from the file
+                nextEmployeeId = objectMapper.readValue(nextEmployeeIdFile, Integer.class);
             } catch (IOException e) {
                 System.out.println("Error loading next employee ID: " + e.getMessage());
             }
@@ -73,13 +67,11 @@ public class Employee {
         return employeeId;
     }
 
-    // Static method to set the next available employee ID (useful for loading from file)
     public static void setNextEmployeeId(int nextId) {
         nextEmployeeId = nextId;
-        saveNextEmployeeId(); // Save the new value
+        saveNextEmployeeId();
     }
 
-    // Static method to get the next available employee ID
     public static int getNextEmployeeId() {
         return nextEmployeeId;
     }
@@ -95,7 +87,6 @@ public class Employee {
                '}';
     }
 
-    // Static block to load the nextEmployeeId from file when the class is loaded
     static {
         loadNextEmployeeId();
     }
