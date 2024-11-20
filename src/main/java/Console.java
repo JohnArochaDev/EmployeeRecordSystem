@@ -10,6 +10,7 @@ public class Console {
 
     private final Scanner scanner;
     ObjectMapper objectMapper = new ObjectMapper();
+    File file = new File("src/main/db/db.json");
 
     public Console(Scanner scanner) {
         this.scanner = scanner;  // Initialize the scanner field
@@ -35,8 +36,9 @@ public class Console {
             case 1:
                 System.out.println("Create Employee");
                 System.out.println("Employee first name:");
-                String firstName = scanner.nextLine().strip();
                 scanner.nextLine();
+                String firstName = scanner.nextLine().strip();
+
 
                 System.out.println("Employee last name:");
                 String lastName = scanner.nextLine().strip();
@@ -55,7 +57,6 @@ public class Console {
 
                 try {
                     // Read existing employees from JSON file (if any)
-                    File file = new File("src/main/db/db.json");
                     List<Employee> employees;
 
                     // If the file doesn't exist or is empty, initialize an empty list
@@ -87,6 +88,40 @@ public class Console {
 
             case 2:
                 System.out.println("Delete Employee");
+                System.out.println("Employee first and last name:");
+                scanner.nextLine();
+                String fullName = scanner.nextLine().strip();
+
+                try{
+                    List<Employee> employees;
+
+                    if (file.exists() && file.length() > 0) {
+                        employees = objectMapper.readValue(file, objectMapper.getTypeFactory().constructCollectionType(List.class, Employee.class));
+                    } else {
+                        employees = new ArrayList<>();
+                    }
+
+                    Employee cannedEmployee = null;
+                    for (Employee person : employees) {
+                        if (person.getName().equals(fullName)) {
+                            cannedEmployee = person;
+                            break;
+                        }
+                    }
+
+                    if (cannedEmployee != null) {
+                        employees.remove(cannedEmployee);
+                        System.out.println("Employee " + fullName + " successfully deleted.");
+                    } else {
+                        System.out.println("Employee " + fullName + " not found.");
+                    }
+
+                    objectMapper.writeValue(file, employees);
+
+                } catch (IOException e) {
+                    System.out.println("Error occurred: " + e.getMessage());
+                }
+
                 break;
             case 3:
                 System.out.println("Find Employee");
