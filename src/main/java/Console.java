@@ -79,9 +79,12 @@ public class Console {
 
                 System.out.println("Back to main menu? (Y/N)");
                 String menu = scanner.nextLine();
-                Boolean toMenu = menu.toLowerCase().equals("y");
+
+                Boolean toMenu = menu.equalsIgnoreCase("y");
                 start(toMenu);
+
                 break;
+
             case 2:
                 System.out.println("Delete Employee");
                 break;
