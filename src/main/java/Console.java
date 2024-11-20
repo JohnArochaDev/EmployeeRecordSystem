@@ -125,6 +125,41 @@ public class Console {
                 break;
             case 3:
                 System.out.println("Find Employee");
+
+                System.out.println("Employee ID:");
+                scanner.nextLine();
+                Integer findID = scanner.nextInt();
+                scanner.nextLine();
+
+                try{
+                    List<Employee> employees;
+
+                    if (file.exists() && file.length() > 0) {
+                        employees = objectMapper.readValue(file, objectMapper.getTypeFactory().constructCollectionType(List.class, Employee.class));
+                    } else {
+                        employees = new ArrayList<>();
+                    }
+
+                    Employee foundEmployee = null;
+                    for (Employee person : employees) {
+                        if (person.getEmployeeId().equals(findID)) {
+                            foundEmployee = person;
+                            break;
+                        }
+                    }
+
+                    if (foundEmployee != null) {
+                        System.out.println(foundEmployee.toString());
+                    } else {
+                        System.out.println("Employee " + findID + " not found.");
+                    }
+
+                    objectMapper.writeValue(file, employees);
+
+                } catch (IOException e) {
+                    System.out.println("Error occurred: " + e.getMessage());
+                }
+
                 break;
         }
     }
