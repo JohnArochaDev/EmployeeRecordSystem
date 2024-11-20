@@ -13,7 +13,7 @@ public class Main {
 
 
         console.start(homeMenu);
-        int userChoice = scanner.nextInt();
-        console.display(userChoice);
+//        int userChoice = scanner.nextInt();
+//        console.display(userChoice);
     }
 }

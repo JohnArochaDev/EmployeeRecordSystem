@@ -23,9 +23,12 @@ public class Console {
             System.out.println("Employee Management System");
             System.out.println("--------------------------");
             System.out.println("Make a selection:");
-            System.out.println("1. Create Employee");
-            System.out.println("2. Delete Employee");
-            System.out.println("3. Find Employee");
+            System.out.println("(1). Create Employee");
+            System.out.println("(2). Delete Employee");
+            System.out.println("(3). Find Employee");
+
+            int userChoice = scanner.nextInt();
+            display(userChoice);
         } else {
             System.out.println("Goodbye...");
         }
@@ -122,6 +125,12 @@ public class Console {
                     System.out.println("Error occurred: " + e.getMessage());
                 }
 
+                System.out.println("Back to main menu? (Y/N)");
+                menu = scanner.nextLine();
+
+                toMenu = menu.equalsIgnoreCase("y");
+                start(toMenu);
+
                 break;
             case 3:
                 System.out.println("Find Employee");
@@ -159,6 +168,12 @@ public class Console {
                 } catch (IOException e) {
                     System.out.println("Error occurred: " + e.getMessage());
                 }
+
+                System.out.println("Back to main menu? (Y/N)");
+                menu = scanner.nextLine();
+
+                toMenu = menu.equalsIgnoreCase("y");
+                start(toMenu);
 
                 break;
         }
