@@ -2,12 +2,12 @@ public class Employee {
     private String name;
     private String email;
     private String position;
-    private String age;
-    private Integer employeeId;
+    private Integer age; // Integer type for age, as in the constructor
+    private final int employeeId;
 
     private static int nextEmployeeId = 1;
 
-    public Employee(String firstName, String lastName, String age, String email, String position, Integer employeeId) {
+    public Employee(String firstName, String lastName, Integer age, String email, String position) {
         this.name = firstName + " " + lastName;
         this.age = age;
         this.email = email;
@@ -27,7 +27,7 @@ public class Employee {
         return position;
     }
 
-    public String getAge() {
+    public Integer getAge() {
         return age;
     }
 
@@ -46,7 +46,19 @@ public class Employee {
     public void setPosition(String position) {
         this.position = position;
     }
-    public void setAge(String age) {
+
+    public void setAge(Integer age) {  // Set Integer to match the field type
         this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+               "name='" + name + '\'' +
+               ", email='" + email + '\'' +
+               ", position='" + position + '\'' +
+               ", age=" + age +
+               ", employeeId=" + employeeId +
+               '}';
     }
 }
