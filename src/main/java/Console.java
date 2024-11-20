@@ -35,21 +35,21 @@ public class Console {
             case 1:
                 System.out.println("Create Employee");
                 System.out.println("Employee first name:");
-                String firstName = scanner.nextLine();
+                String firstName = scanner.nextLine().strip();
                 scanner.nextLine();
 
                 System.out.println("Employee last name:");
-                String lastName = scanner.nextLine();
+                String lastName = scanner.nextLine().strip();
 
                 System.out.println("Employee age:");
                 int age = scanner.nextInt();
                 scanner.nextLine();
 
                 System.out.println("Employee email:");
-                String email = scanner.nextLine();
+                String email = scanner.nextLine().strip();
 
                 System.out.println("Employee position:");
-                String position = scanner.nextLine();
+                String position = scanner.nextLine().strip();
 
                 Employee employee = new Employee(firstName, lastName, age, email, position);
 
@@ -79,7 +79,7 @@ public class Console {
 
                 System.out.println("Back to main menu? (Y/N)");
                 String menu = scanner.nextLine();
-                Boolean toMenu = menu.toLowerCase().equals("y") ? true : false;
+                Boolean toMenu = menu.toLowerCase().equals("y");
                 start(toMenu);
                 break;
             case 2:
